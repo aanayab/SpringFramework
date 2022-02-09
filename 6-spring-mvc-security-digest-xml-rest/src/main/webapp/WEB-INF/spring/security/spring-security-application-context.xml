@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- Configuración de Spring security -->
+	<security:http use-expressions="true" create-session="stateless" entry-point-ref="digestEntryPoint" > <!-- referencia al bean entry-point DigestAuthenticationEntryPoint -->
+		
+		<!-- elimina security:form-login -->
+		<!-- <security:form-login /> -->
+
+		<!-- define custom-filter BASIC_AUTH_FILTER -->
+		<security:custom-filter after="BASIC_AUTH_FILTER" ref="digestFilter" />
+		
+		<!-- Analiza la configuracion de las URLs definidas -->
+
+		<security:intercept-url pattern="/welcome" access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/" access="permitAll" />
+
+		<security:intercept-url pattern="/root*/**" access="hasAnyRole('ROLE_ROOT')" />
+
+		<security:intercept-url pattern="/admin*/**" access="hasAnyRole('ROLE_ADMIN')" />
+
+		<security:intercept-url pattern="/user*/**" access="hasRole('ROLE_USER')" />
+
+	</security:http>
+
+	<!-- define bean DigestAuthenticationFilter -->
+	<bean id="digestFilter"
+		class="org.springframework.security.web.authentication.www.DigestAuthenticationFilter">
+		<property name="userDetailsService" ref="userDetails" />
+		<property name="authenticationEntryPoint" ref="digestEntryPoint" />
+	</bean>
+	
+	<!-- define bean DigestAuthenticationEntryPoint -->
+	<bean id="digestEntryPoint"
+		class="org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint">
+		<property name="realmName" value="My application realm" />
+		<property name="key" value="my-secret-key" />
+		<property name="nonceValiditySeconds" value="10" />
+	</bean>
+
+	<!-- define authentication-manager -->
+	<security:authentication-manager>
+	
+		<!-- define authentication-provider -->
+		<!-- define user-service haciendo referencia al bean CustomUserDetailsService -->
+		<security:authentication-provider user-service-ref="userDetails" />
+		
+	</security:authentication-manager>
+	
+	
+	<!-- define bean CustomUserDetailsService con bean interno HardcodedUserDetailsRepository -->
+	<bean id="userDetails" class="com.truper.spring.mvc.digestsecurity.practica34.service.CustomUserDetailsService">
+		<constructor-arg>
+			<bean class="com.truper.spring.mvc.digestsecurity.practica34.repository.impl.HardcodedUserDetailsRepository" />
+		</constructor-arg>
+	</bean>
+	
+	
+</beans>

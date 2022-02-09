@@ -1,0 +1,5 @@
+# Authorized
+curl --digest --user xvanhalenx:123123 http://localhost:8080/6-spring-mvc-security-digest-xml-rest/welcome -v
+
+# Unauthorized
+curl http://localhost:8080/6-spring-mvc-security-digest-xml-rest/welcome -v

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- Define el bean CustomEditorConfigurer -->
+	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+	
+		<property name="customEditors">
+		
+			<map>
+				<entry key="com.truper.spring.core.practicaE.propertyeditor.bean.CreditCard" 
+					   value="com.truper.spring.core.practicaE.propertyeditor.editor.CreditCardEditor" />
+			</map>
+		
+		</property>
+		
+	</bean>
+	
+	<!-- Define el bean Customer -->
+	<bean class="com.truper.spring.core.practicaE.propertyeditor.bean.Customer">
+		<property name="name" value="Ivan Garcia" />
+		<property name="creditCard" value="2222-2233-3333-3334" />
+	</bean>
+
+</beans>

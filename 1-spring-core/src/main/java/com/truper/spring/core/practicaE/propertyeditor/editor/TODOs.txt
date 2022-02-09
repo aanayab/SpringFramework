@@ -1,0 +1,17 @@
+TODO 2.
+Definir el PropertyEditor CreditCardEditor
+
+
+TODO 3.
+Befinir los beans requeridos en spring/practicaE/property-editor-application-context.xml
+
+
+TODO 4.
+Analizar y ejecutar el test PropertyEditorTest
+
+
+TODO 5.
+Cambia el archivo de configuracion del test PropertyEditorTest por Java Config
+mediante la clase PropertyEditorConfig y configurala
+
+

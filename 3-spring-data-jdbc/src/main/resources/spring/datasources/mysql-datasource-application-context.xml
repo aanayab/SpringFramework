@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<!-- cargar property-placeholder mysql-jdbc.properties -->
+	<context:property-placeholder
+		location="classpath:/spring/properties/mysql-jdbc.properties"
+		ignore-unresolvable="true"	
+		order="2" />
+
+	<!-- cargar property-placeholder c3p0-pooled-datasource.properties -->
+	<context:property-placeholder
+		location="classpath:/spring/properties/c3p0-pooled-datasource.properties"
+		ignore-unresolvable="true"
+		order="1" />
+
+	<!-- definir datasource com.mchange.v2.c3p0.ComboPooledDataSource -->
+	
+	<!-- definir datasource com.zaxxer.hikari.HikariConfig -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="poolName" value="springHikariCP" />
+		<property name="connectionTestQuery" value="SELECT 1" />
+		<!-- <property name="dataSourceClassName" value="${db.datasource.name}" /> -->
+		<property name="driverClassName" value="${db.driverClassName}" />
+		<property name="jdbcUrl" value="${db.url}" />
+		<property name="maximumPoolSize" value="${c3p0.maxPoolSize}" />
+		<property name="idleTimeout" value="${c3p0.idleTimeout}" />
+		<property name="dataSourceProperties">
+			<props>
+				<prop key="user">${db.user}</prop>
+				<prop key="password">${db.pass}</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="datasource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<constructor-arg name="configuration" ref="hikariConfig" />
+	</bean>
+
+</beans>

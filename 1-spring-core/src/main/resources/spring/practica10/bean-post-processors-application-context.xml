@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Define bean workerBean -->
+	<bean id="worker" init-method="init"
+		class="com.truper.spring.core.practica10.beanpostprocessors.bean.Worker">
+
+		<property name="name" value="Paula" />
+		<property name="age" value="8" />
+
+	</bean>
+
+	<!-- Define bean clase BeanPostProcessor1 -->
+	<bean class="com.truper.spring.core.practica10.beanpostprocessors.bpp.BeanPostProcessor1" />
+
+	<!-- Define bean clase BeanPostProcessor2 -->
+	<bean class="com.truper.spring.core.practica10.beanpostprocessors.bpp.BeanPostProcessor2" />
+
+	<!-- Define bean clase BeanPostProcessor3 -->
+	<bean class="com.truper.spring.core.practica10.beanpostprocessors.bpp.BeanPostProcessor3" />
+
+</beans>

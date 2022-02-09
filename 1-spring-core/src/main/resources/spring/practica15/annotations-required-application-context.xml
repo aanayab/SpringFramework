@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<!-- Habilita configuración por anotaciones -->
+	<context:annotation-config />
+
+	<!-- Define bean Cameraman (okCameraman) -->
+	<bean id="okCameraman" scope="prototype"
+		class="com.truper.spring.core.practica15.required.bean.Cameraman">
+		<property name="name" ref="name" />
+		<property name="dni" ref="dni" />
+	</bean>
+
+	<!-- Define bean Cameraman (badCameraman) -->
+	<bean id="badCameraman" scope="prototype"
+		class="com.truper.spring.core.practica15.required.bean.Cameraman" />
+
+	<bean id="name" class="java.lang.String">
+		<constructor-arg>
+			<value>Lara Croft</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="dni" class="java.lang.String">
+		<constructor-arg>
+			<value>DNI-1322-QWERTY</value>
+		</constructor-arg>
+	</bean>
+
+</beans>

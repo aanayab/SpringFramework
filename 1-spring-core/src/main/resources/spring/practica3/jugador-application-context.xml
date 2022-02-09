@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- definir bean partidoBean -->
+	<bean id="partidoBean"
+		class="com.truper.spring.core.practica3.liga.Partido">
+		<property name="nombre" value="Mexico vs Australia" />
+	</bean>
+
+	<!-- definir bean eventoBean -->
+	<bean id="eventoBean" class="com.truper.spring.core.practica3.liga.Evento">
+		<property name="nombre">
+			<value>Mundial Qatar 2022</value>
+		</property>
+	</bean>
+
+	<!-- definir bean torneoBean -->
+	<bean id="torneoBean" class="com.truper.spring.core.practica3.liga.Torneo">
+		
+		<constructor-arg ref="eventoBean" />
+		
+		<property name="nombre" value="4tos de Final" />
+	</bean>
+
+	<!-- definir bean jugadorBean -->
+	<bean id="jugadorBean" 
+		class="com.truper.spring.core.practica3.jugador.JugadorFutbolAmericano">
+
+		<constructor-arg>
+			<ref bean="torneoBean" />
+		</constructor-arg>
+
+		<constructor-arg ref="partidoBean" />
+
+		<property name="nombre">
+			<value>Chicharito</value>
+		</property>
+
+	</bean>
+
+</beans>

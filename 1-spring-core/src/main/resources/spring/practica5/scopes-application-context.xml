@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- singleton -->
+	<!-- Definir personaSingletonBean -->
+	<bean id="personaSingletonBean" scope="singleton" 
+		  class="com.truper.spring.core.practica5.scopes.bean.Persona" />
+	
+	
+	<!-- prototype -->
+	<!-- Definir personaPrototypeBean -->
+	<bean id="personaPrototypeBean" scope="prototype" 
+		  class="com.truper.spring.core.practica5.scopes.bean.Persona" />
+	
+	
+	<!-- custom scope -->
+	<!-- Definir customScopeBean -->
+	<bean id="customScopeBean" class="com.truper.spring.core.practica5.scopes.custom.bean.CustomScope" />
+
+	<!-- configurador -->
+	<!-- Definir CustomScopeConfigurer -->
+	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+	
+		<property name="scopes">
+		
+			<map>
+				<entry key="customscope">
+					<ref bean="customScopeBean"/>
+				</entry>
+				
+				<entry key="thread">
+					<!-- Bean interno, no requiere nombre/id, porque es interno y solo es visible al bean que lo
+					     contiene. No puedes hacer referencia a un bean interno por medio de su Id.
+					     Es decir, no puedes hacer getBean(id_bean_interno). -->
+					<bean class="org.springframework.context.support.SimpleThreadScope" />
+				</entry>
+			</map>
+		
+		</property>
+	
+	</bean>
+
+	<!-- bean customscope -->
+	<!-- Definir personaCustomScopeBean -->
+	<bean id="personaCustomScopeBean" scope="customscope" 
+		  class="com.truper.spring.core.practica5.scopes.bean.Persona" />
+		  
+		  
+	<!-- bean thread scope -->
+	<bean id="personaThreadScopeBean" scope="thread"
+		  class="com.truper.spring.core.practica5.scopes.bean.Persona" />
+	
+	
+
+</beans>

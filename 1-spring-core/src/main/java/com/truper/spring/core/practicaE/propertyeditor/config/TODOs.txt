@@ -1,0 +1,22 @@
+TODO 6.
+Define la clase de configuracion PropertyEditorConfig tal cual el archivo
+de configuracion spring/practicaE/property-editor-application-context.xml
+
+
+TODO 7.
+Analizar y ejecutar el test PropertyEditorTest utilizando la clase de
+configuracion PropertyEditorConfig
+
+
+
+TODO 8 (opcional).
+Realiza la configuracion de la clase CreditCardPropertyEditorRegistrar mediante
+la implementacion de PropertyEditorRegistrar
+
+
+TODO 9 (opcional).
+Define el archivo de configuracion de beans spring/practicaE/property-editor-registrar-application-context.xml
+
+
+TODO 10.
+Analiza y ejecuta la clase de Test PropertyEditorRegistrarTest

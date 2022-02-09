@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Define bean clase Person -->
+	<bean class="com.truper.spring.core.practica11.innerbeans.bean.Person">
+		<property name="name">
+			<!-- Bean interno -->
+			<bean id="nameBean" class="java.lang.String">
+				<constructor-arg value="Ivan" />
+			</bean>
+		</property>
+		
+		<property name="age" value="34" />
+		
+		<property name="address">
+			<!-- Bean interno -->
+			<bean class="com.truper.spring.core.practica11.innerbeans.bean.Address">
+				<property name="street" ref="streetNameBean" />
+				
+				<property name="externalNumber" value="123" />
+				
+				<property name="internalNumber" value="s/n" />
+				
+				<property name="neighbor">
+					<!-- Bean interno -->
+					<bean class="java.lang.String">
+						<constructor-arg>
+							<value>Paseos de Taxqueña</value>
+						</constructor-arg>
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+	<!-- Define bean streetNameBean -->
+	<bean id="streetNameBean" class="java.lang.String">
+		<constructor-arg value="Uxmal" />
+	</bean>
+	
+</beans>

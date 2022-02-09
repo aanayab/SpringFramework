@@ -1,0 +1,18 @@
+TODO 1.
+Analizar la anotacion MonitorPerformance.
+
+
+TODO 2.
+Analizar la clase BusinessService y anotar el metodo execute con @MonitorPerformance.
+
+
+TODO 3.
+Definir advisor PerformanceAdvice Implementando Advice MethodBeforeAdvice y AfterReturningAdvice
+
+
+TODO 4.
+Analizar beans definidos en spring/practicaG/advisors-application-context.xml
+
+
+TODO 5.
+Analizar TEST AdvisorsAopXmlTest

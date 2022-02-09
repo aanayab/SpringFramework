@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- Configuración de Spring security -->
+	<security:http use-expressions="true" create-session="stateless"> 
+
+		<!-- Analiza la configuracion de las URLs definidas -->
+		
+		<!-- elimina security:form-login -->
+		<!-- <security:form-login /> -->
+		
+		<security:intercept-url pattern="/welcome" access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/" access="permitAll" />
+
+		<security:intercept-url pattern="/root*/**" access="hasAnyRole('ROLE_ROOT')" />
+
+		<security:intercept-url pattern="/admin*/**" access="hasAnyRole('ROLE_ADMIN')" />
+
+		<security:intercept-url pattern="/user*/**" access="hasRole('ROLE_USER')" />
+
+		<!-- Habilita configuracion http-basic -->
+		<security:http-basic entry-point-ref="basicAuthenticationEntryPoint"/>
+		
+		<!-- Opcional habilita http-basic con referencia al entry-point BasicAuthenticationEntryPoint -->
+
+	</security:http>
+	
+	<!-- Opcional, define bean BasicAuthenticationEntryPoint -->
+	<bean id="basicAuthenticationEntryPoint" 
+		  class="org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint">
+	
+		<property name="realmName" value="Spring Security with Basic Authentication Application (XML config)" />
+		
+	</bean>
+	
+
+	<!-- define authentication-manager -->
+	<security:authentication-manager>
+	
+		<!-- define authentication-provider -->
+		<security:authentication-provider>
+		
+			<!-- define user-service -->
+			<security:user-service>
+				<security:user name="admin" password="admin" authorities="ROLE_ADMIN" />
+				<security:user name="xvanhalenx" password="123123" authorities="ROLE_ROOT,ROLE_ADMIN" />
+				<security:user name="user" password="user" authorities="ROLE_USER" />
+			</security:user-service>
+			
+		</security:authentication-provider>
+		
+	</security:authentication-manager>
+	
+	
+
+</beans>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Define bean clase Car -->
+	<bean class="com.truper.spring.core.practica7.lazyinit.bean.Car" 
+		  lazy-init="true" scope="singleton">
+		<property name="engine">
+			<!-- Bean interno -->
+			<bean class="com.truper.spring.core.practica7.lazyinit.bean.Engine">
+				<property name="cylinderNumber" value="8" />
+				<property name="hp" value="450" />
+				<property name="serial" value="XXX-XXX-XXX" />
+			</bean>
+		</property>
+		<property name="wheel1" ref="wheelBean" />
+		<property name="wheel2" ref="wheelBean" />
+		<property name="wheel3" ref="wheelBean" />
+		<property name="wheel4" ref="wheelBean" />
+	</bean>
+
+	<!-- Define bean engine, ya no, se definio como bean interno -->
+	
+	<!-- Define bean wheel -->
+	<bean id="wheelBean" scope="prototype" 
+		  class="com.truper.spring.core.practica7.lazyinit.bean.Wheel">
+		<property name="brand" value="Pirelli" />
+		<property name="material" value="Pet y caucho" />
+		<property name="rinSize" value="18" />
+	</bean>
+
+</beans>

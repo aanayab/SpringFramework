@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-2.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.11.xsd">
+
+	
+	<context:component-scan base-package="com.truper.spring.data.practicaI.mongodb" />
+	
+	<!-- Define mongo:repositories -->
+	<mongo:repositories base-package="com.truper.spring.data.practicaI.mongodb.repositories" />
+	
+	<!-- Define mongo:mongo-client -->
+	<!-- Solo funcionara si tienes mongodb instalado
+	<mongo:mongo-client id="mongoClient" host="localhost" />
+	-->
+	
+	<beans profile="sin-mongodbfactory">
+		
+		<!-- En caso de no definir mongo:db-factory, el bean MongoTemplate, debe definirse 
+			 de la manera tradicional a traves de <bean> -->
+			 
+		<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+			<constructor-arg ref="mongoClient" />
+			<constructor-arg value="testdb2"/>
+		</bean>
+	</beans>
+	
+	
+	
+	<beans profile="con-mongodbfactory">
+		
+		<mongo:db-factory id="mongoDbFactory" mongo-ref="mongoClient" dbname="testdb2"/>
+		
+		<mongo:template id="mongoTemplate" db-factory-ref="mongoDbFactory"/>
+		
+	</beans>
+	
+	
+	
+</beans>

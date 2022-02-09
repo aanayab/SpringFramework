@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Define bean student1 -->
+	<bean id="student1" factory-method="constructStudent"
+		  class="com.truper.spring.core.practica8.factorymethod.bean.Student">
+	
+		<constructor-arg index="0" value="Paula Sofia" />
+		<constructor-arg index="1" value="Programacion III" />
+		
+	</bean>
+
+	<!-- Define bean student2 -->
+	<bean id="student2" factory-method="build" factory-bean="studentFactoryBean"
+		  class="com.truper.spring.core.practica8.factorymethod.bean.Student">
+	
+		<constructor-arg index="1" value="Paula Sofia" />
+		<constructor-arg index="0" value="Programacion III" />
+		
+	</bean>
+	
+	<bean id="studentFactoryBean" 
+		  class="com.truper.spring.core.practica8.factorymethod.factories.StudentFactory" />
+
+</beans>

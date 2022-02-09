@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<!-- TODO 3. -->
+	<!-- Define el valor de randomNumber con SpEL -->
+	<bean id="guessNumberBean"
+		class="com.truper.spring.core.practica21.spel.bean.GuessNumber">
+		<property name="randomNumber"
+			value="#{ T(java.lang.Math).random() * 100.0 }" />
+	</bean>
+
+	<!-- TODO 3. -->
+	<!-- Define el valor de initialNumber igual a randomNumber del bean GuessNumber -->
+	<bean class="com.truper.spring.core.practica21.spel.bean.Magician">
+		<property name="initialNumber"
+			value="#{ guessNumberBean.randomNumber }" />
+	</bean>
+
+
+	<!-- TODO 13. -->
+	<!-- Define Bean MyBeanResolver -->
+
+	<!-- TODO 13. -->
+	<!-- Define el Bean Inventor name teslaBean usa factory bean y factory method -->
+	<bean name="teslaBean"
+		class="com.truper.spring.core.practica21.spel.model.Inventor"
+		factory-bean="factory" factory-method="createInventorTesla"></bean>
+
+	
+	<!-- TODO 13. -->
+	<!-- Define Bean SocietyStub -->
+	<bean id="factory"
+		class="com.truper.spring.core.practica21.test.spel.model.stub.SocietyStub"></bean>
+
+
+</beans>

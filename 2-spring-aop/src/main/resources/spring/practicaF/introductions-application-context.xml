@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+
+	<context:component-scan
+		base-package="com.truper.spring.aop.practicaF,com.truper.spring.aop.util.bean" />
+
+	<bean id="student"
+		class="com.truper.spring.aop.practicaF.introductions.bean.Student">
+		<property name="name" value="Ivan Garcia" />
+		<property name="studentNumber" value="2008630474" />
+	</bean>
+
+	<bean id="studentAdditionalDetails"
+		class="com.truper.spring.aop.practicaF.introductions.bean.StudentAdditionalDetails">
+		<property name="country" value="England" />
+		<property name="city" value="London" />
+	</bean>
+
+	<!-- Inicia el bean aop:config -->
+	<aop:config proxy-target-class="true" >
+		<!-- Inicia la configuracíon de un aspecto -->
+		<aop:aspect>
+			<!-- Dentro del aspecto declara un nuevo parent -->
+			<aop:declare-parents 
+								 types-matching="com.truper.spring.aop.practicaF.introductions.bean.api.IStudent+" 
+								 implement-interface="com.truper.spring.aop.practicaF.introductions.bean.api.IStudentAdditionalDetails"
+								 delegate-ref="studentAdditionalDetails" />
+		</aop:aspect>
+
+	</aop:config>
+
+
+
+
+</beans>

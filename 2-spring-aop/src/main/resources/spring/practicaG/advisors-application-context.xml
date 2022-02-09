@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+
+	<context:component-scan
+		base-package="com.truper.spring.aop.practicaG,com.truper.spring.aop.util.bean" />
+
+	<!-- <bean class="com.truper.spring.aop.practicaG.advisors.bean.BusinessService" /> -->
+
+	<bean id="performanceAdvice" class="com.truper.spring.aop.practicaG.advisors.advice.PerformanceAdvice" />
+
+	<aop:config>
+
+		<!-- Define pointcut que intercepte la ejecucion de cualuier metodo del paquete practicaG y -->
+		<!-- que este anotado con @com.truper.spring.aop.practicaG.advisors.annotation.MonitorPerformance -->
+		
+		<!-- Define advisor que sea ejecutado en el pointcut anterior por el advice performanceAdvice -->
+		<aop:pointcut id="performanceMonitorAnnotaedMethodCall" 
+					  expression="execution(* com.truper..practicaG..*(..)) and @annotation(com.truper.spring.aop.practicaG.advisors.annotation.MonitorPerformance)" />
+		
+		<aop:advisor pointcut-ref="performanceMonitorAnnotaedMethodCall"
+					 advice-ref="performanceAdvice"/>
+
+	</aop:config>
+
+</beans>
